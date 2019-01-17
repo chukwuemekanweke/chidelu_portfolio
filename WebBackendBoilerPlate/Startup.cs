@@ -94,21 +94,21 @@ namespace WebBackendBoilerPlate
             });
 
             //Sql Server
-            //services.AddDbContext<SwitchWalletDbContext>(options =>
-            //{
-            //    options.EnableSensitiveDataLogging();
-            //    options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("AssetConnectionString"), b => b.MigrationsAssembly("SwitchWallet.Api"));
+            services.AddDbContext<BoilerPlateDbContext>(options =>
+            {
+                options.EnableSensitiveDataLogging();
+                options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("WebBackendBoilerPlate"));
 
-            //    options.ConfigureWarnings(c => c.Log(CoreEventId.DetachedLazyLoadingWarning));
+                options.ConfigureWarnings(c => c.Log(CoreEventId.DetachedLazyLoadingWarning));
 
-            //}
-            //);
+            }
+            );
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<ApplicationUser>()
+                    Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("WebBackendBoilerPlate")));
+            services.AddDefaultIdentity<ApplicationUser>().AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -171,13 +171,11 @@ namespace WebBackendBoilerPlate
                 new Uri("http://127.0.0.1:8091")
             };
 
-                opt.Username = "Ugarsoft";
-                //opt.Password = "computer007";
-
-                opt.Password = "Live4MoneyPitufo";
+                opt.Username = "{username}";
+                opt.Password = "{password}";
             });
 
-            services.AddDistributedCouchbaseCache("SwitchWallet", opt => { });
+            services.AddDistributedCouchbaseCache("{BucketName}", opt => { });
 
             //D.I
             services.AddTransient<JwtAuthenticator>();
@@ -204,7 +202,7 @@ namespace WebBackendBoilerPlate
               x =>
               {
                   x.UseActivator(new ContainerJobActivator(scopeFactory));
-                  x.UseSqlServerStorage(Configuration.GetConnectionString("AssetConnectionString"));
+                  x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"));
 
               }
               );
@@ -231,7 +229,7 @@ namespace WebBackendBoilerPlate
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Switchwallet Api V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Boiler Plate  Api V1");
 
                 c.DocumentTitle = "Title Documentation";
                 c.DocExpansion(DocExpansion.None);
