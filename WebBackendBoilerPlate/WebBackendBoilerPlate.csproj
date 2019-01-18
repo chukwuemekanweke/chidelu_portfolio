@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BoilerPlate.ModelLayer\BoilerPlate.ModelLayer.csproj" />
+    <ProjectReference Include="..\BoilerPlate.Security\BoilerPlate.Security.csproj" />
     <ProjectReference Include="..\BoilerPlate.ServiceLayer\BoilerPlate.ServiceLayer.csproj" />
   </ItemGroup>
 

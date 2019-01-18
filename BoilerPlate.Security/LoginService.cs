@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BoilerPlate.Security
 {
-    public class LoginService : ILoginService
+    public class LoginService : ILoginService, ISecurityBaseService
     {
         UserManager<ApplicationUser> UserManager { get; set; }
         RoleManager<IdentityRole> RoleManager { get; set; }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BoilerPlate.Security.Interface
 {
-    public class IdentityUserService
+    public class IdentityUserService:ISecurityBaseService, IIdentityUserService 
     {
         UserManager<ApplicationUser> UserManager { get; set; }
         RoleManager<IdentityRole> RoleManager { get; set; }

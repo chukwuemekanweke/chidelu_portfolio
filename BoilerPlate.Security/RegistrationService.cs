@@ -1,4 +1,5 @@
-﻿using BoilerPlate.ModelLayer.Entity;
+﻿using BoilerPlate.DataLayer.Interface;
+using BoilerPlate.ModelLayer.Entity;
 using BoilerPlate.ModelLayer.Identity;
 using BoilerPlate.ModelLayer.PresentationViewModels;
 using BoilerPlate.Security.Interface;
@@ -22,12 +23,14 @@ namespace BoilerPlate.Security
         RoleManager<IdentityRole> RoleManager { get; set; }
         IUserService UserService { get; set; }
         IEmailSender EmailSender { get; set; }
-        public RegistrationService(UserManager<ApplicationUser>userManager, RoleManager<IdentityRole> roleManager, IUserService userService, IEmailSender emailSender)
+        IUnitOfWork UnitOfWork { get; set; }
+        public RegistrationService(UserManager<ApplicationUser>userManager, RoleManager<IdentityRole> roleManager, IUserService userService, IEmailSender emailSender, IUnitOfWork unitOfWork)
         {
             UserManager = userManager;
             RoleManager = roleManager;
             UserService = userService;
             EmailSender = emailSender;
+            UnitOfWork = unitOfWork;
         }
 
 
@@ -59,6 +62,7 @@ namespace BoilerPlate.Security
                 //await UserManager.AddToRoleAsync(identityUser, AppRoles.userRole);
 
                 USER user = UserService.CreateUser(email, userName, phoneNumber, identityUser.Id);
+                UnitOfWork.SaveChanges();
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(identityUser);
                 string confirmationLink = generateConfirmationLink(code, identityUser.Id);
                                               
@@ -127,7 +131,10 @@ namespace BoilerPlate.Security
                 //await UserManager.AddToRoleAsync(identityUser, AppRoles.userRole);
 
                 USER user = UserService.CreateUser(email, userName, phoneNumber, identityUser.Id);
-                
+
+                UnitOfWork.SaveChanges();
+
+
             }
 
             catch (Exception ex)

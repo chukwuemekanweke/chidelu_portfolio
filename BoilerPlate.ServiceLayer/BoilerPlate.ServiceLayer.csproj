@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BoilerPlate.DataLayer\BoilerPlate.DataLayer.csproj" />
     <ProjectReference Include="..\BoilerPlate.ModelLayer\BoilerPlate.ModelLayer.csproj" />
   </ItemGroup>
 

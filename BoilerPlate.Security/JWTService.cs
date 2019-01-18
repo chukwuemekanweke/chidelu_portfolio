@@ -52,7 +52,7 @@ namespace BoilerPlate.Security
             IIdentityUserService identityUserService = SecurityServiceFactory.GetService(typeof(IIdentityUserService)) as IIdentityUserService;
 
 
-            var applicationUser = await identityUserService.GetApplicationUser(identityUserId);
+            var applicationUser = await identityUserService.GetApplicationUserAsync(identityUserId);
 
             var jwtToken = GenerateJwtToken(applicationUser);
             var refreshToken = refreshTokenService.GenerateAndSaveRefreshToken(identityUserId);
