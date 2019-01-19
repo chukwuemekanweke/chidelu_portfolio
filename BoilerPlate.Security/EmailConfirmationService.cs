@@ -27,7 +27,7 @@ namespace BoilerPlate.Security
                 throw new InvalidOperationException("Oops Email Link Is Invalid");
             }
             IdentityResult result = await UserManager.ConfirmEmailAsync(user, token);
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
                 throw new InvalidOperationException("Oops Email Link Is Invalid");
             }
