@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BoilerPlate.Security
 {
-    public class JWTService: ISecurityBaseService
+    public class JWTService: IJWTService, ISecurityBaseService
     {
 
         readonly JwtConfiguration jwtConfig;
@@ -46,16 +46,16 @@ namespace BoilerPlate.Security
             return principal;
         }
 
-        public async Task<JwtWithRefreshToken> GenerateJWtWithRefreshToken(string identityUserId)
+        public async Task<JwtWithRefreshToken> GenerateJWtWithRefreshTokenAsync(ApplicationUser user)
         {
             IRefreshTokenService refreshTokenService = SecurityServiceFactory.GetService(typeof(IRefreshTokenService)) as IRefreshTokenService;
             IIdentityUserService identityUserService = SecurityServiceFactory.GetService(typeof(IIdentityUserService)) as IIdentityUserService;
 
 
-            var applicationUser = await identityUserService.GetApplicationUserAsync(identityUserId);
+            //var applicationUser = await identityUserService.GetApplicationUserAsync(identityUserId);
 
-            var jwtToken = GenerateJwtToken(applicationUser);
-            var refreshToken = refreshTokenService.GenerateAndSaveRefreshToken(identityUserId);
+            var jwtToken = GenerateJwtToken(user);
+            var refreshToken = refreshTokenService.GenerateAndSaveRefreshToken(user.Id);
             return new JwtWithRefreshToken
             {
                 AccessToken = jwtToken.AccessToken,

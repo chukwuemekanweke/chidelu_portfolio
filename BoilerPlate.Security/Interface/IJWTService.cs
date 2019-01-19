@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BoilerPlate.Security.Interface
 {
@@ -11,7 +12,7 @@ namespace BoilerPlate.Security.Interface
     {
         ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
 
-        Jwt GenerateJWTToken(ApplicationUser user);
-       
+        Jwt GenerateJwtToken(ApplicationUser user);
+        Task<JwtWithRefreshToken> GenerateJWtWithRefreshTokenAsync(ApplicationUser user );
     }
 }

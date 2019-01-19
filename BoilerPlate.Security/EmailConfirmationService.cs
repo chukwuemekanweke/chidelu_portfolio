@@ -17,7 +17,7 @@ namespace BoilerPlate.Security
             UserManager = userManager;
         }
 
-        public async Task ConfirmEmail(string userid, string token)
+        public async Task<string> ConfirmEmail(string userid, string token)
         {
             ErrorHandler errorHandler = new ErrorHandler();
             string redirectUrl = "";
@@ -31,6 +31,7 @@ namespace BoilerPlate.Security
             {
                 throw new InvalidOperationException("Oops Email Link Is Invalid");
             }
+            return user.Email;
 
         }
     }

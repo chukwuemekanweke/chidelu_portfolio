@@ -38,14 +38,21 @@ namespace BoilerPlate.Security.Interface
 
         public async Task ResendEmailConfirmationAsync(string emailAddress, Func<string,string,string> generateConfirmationLink, string PathToEmailFile)
         {
-            ApplicationUser user = await UserManager.FindByEmailAsync(emailAddress);
-            if (user != null && !user.EmailConfirmed)
+            try
             {
-                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+                ApplicationUser user = await UserManager.FindByEmailAsync(emailAddress);
+                if (user != null && !user.EmailConfirmed)
+                {
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
 
-                string confirmationLink = generateConfirmationLink(code, user.Id);
-                string body = arrangeEmailTemplateForEmailConfirmation(user.UserName, PathToEmailFile, confirmationLink);
-                SendGrid.Response emailResponse = await EmailSender.SendEmailAsync(emailAddress, "Confirm your email",body);
+                    string confirmationLink = generateConfirmationLink(code, user.Id);
+                    string body = arrangeEmailTemplateForEmailConfirmation(user.UserName, PathToEmailFile, confirmationLink);
+                    SendGrid.Response emailResponse = await EmailSender.SendEmailAsync(emailAddress, "Confirm your email", body);
+
+                }
+            }
+            catch(Exception ex)
+            {
 
             }
         }

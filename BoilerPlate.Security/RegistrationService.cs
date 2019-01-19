@@ -59,7 +59,6 @@ namespace BoilerPlate.Security
                     throw new Exception(errorMessage);
                 }
 
-                //await UserManager.AddToRoleAsync(identityUser, AppRoles.userRole);
 
                 USER user = UserService.CreateUser(email, userName, phoneNumber, identityUser.Id);
                 UnitOfWork.SaveChanges();
@@ -68,8 +67,6 @@ namespace BoilerPlate.Security
                                               
                 var emailBody = arrangeEmailTemplateForEmailConfirmation(userName, PathToEmailFile,HtmlEncoder.Default.Encode(confirmationLink));
 
-                //SendGrid.Response emailResponse = await emailSender.SendEmailAsync(model.EmailAddress, "Confirm your email",
-                //    $"Please confirm your account by <a href='{confirmationLink}'>clicking here</a>.");
 
                 Response emailResponse = await EmailSender.SendEmailAsync(email, "Boiler Plate Email Account Confirmation",emailBody);
 
@@ -87,7 +84,7 @@ namespace BoilerPlate.Security
             
             var builder = new BodyBuilder();
 
-            using (StreamReader SourceReader = System.IO.File.OpenText(pathToEmailFile))
+            using (StreamReader SourceReader = File.OpenText(pathToEmailFile))
             {
                 builder.HtmlBody = SourceReader.ReadToEnd();
             }
@@ -117,7 +114,6 @@ namespace BoilerPlate.Security
                     Email = email,
                     UserName = userName,
                     PhoneNumber = phoneNumber,
-                    EmailConfirmed = true,
                 };
 
                 IdentityResult result = await UserManager.CreateAsync(identityUser, model.Password);
@@ -128,6 +124,9 @@ namespace BoilerPlate.Security
                     throw new Exception(errorMessage);
                 }
 
+
+                string token = await UserManager.GenerateEmailConfirmationTokenAsync(identityUser);
+                await UserManager.ConfirmEmailAsync(identityUser, token);
                 //await UserManager.AddToRoleAsync(identityUser, AppRoles.userRole);
 
                 USER user = UserService.CreateUser(email, userName, phoneNumber, identityUser.Id);

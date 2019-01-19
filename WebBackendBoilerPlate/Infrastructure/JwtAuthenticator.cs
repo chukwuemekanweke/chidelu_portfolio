@@ -1,4 +1,5 @@
 ﻿using BoilerPlate.ModelLayer.Identity;
+using BoilerPlate.Security.Models;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;

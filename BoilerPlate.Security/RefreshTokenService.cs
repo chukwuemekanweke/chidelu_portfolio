@@ -53,7 +53,7 @@ namespace BoilerPlate.Security
             if (savedRefreshToken != refreshToken)
                 throw new SecurityTokenException("Invalid refresh token");
 
-            var newJwtToken = jwtService.GenerateJWTToken(applicationUser);
+            var newJwtToken = jwtService.GenerateJwtToken(applicationUser);
             var newRefreshToken = GenerateRefreshToken();
             DeleteRefreshToken(username, refreshToken);
             SaveRefreshToken(username, newRefreshToken);

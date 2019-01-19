@@ -31,28 +31,33 @@ namespace BoilerPlate.Security
         {
             try
             {
+                Jwt jwt = null;
                 IJWTService jwtService = SecurityServiceFactory.GetService(typeof(IJWTService)) as IJWTService;
                 IIdentityUserService identityService = SecurityServiceFactory.GetService(typeof(IIdentityUserService)) as IIdentityUserService;
 
                 ApplicationUser user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    throw new Exception("Incorrect email or password");
+                    throw new InvalidOperationException("Incorrect email or password");
                 }
 
                 bool isPasswordCorrect = await UserManager.CheckPasswordAsync(user, model.Password);
                 if (!isPasswordCorrect)
                 {
-                    throw new Exception("Incorrect email or password");
+                    throw new InvalidOperationException("Incorrect email or password");
                 }
 
                 var isEmailConfirmed = await UserManager.IsEmailConfirmedAsync(user);
                 if (!isEmailConfirmed)
                 {
                     await identityService.ResendEmailConfirmationAsync(user.Email, generateConfirmationLink, PathToEmailFile);
-                    throw new InvalidOperationException($"{user.Email} Has Not Been Confirmed. Please Retry Sending Of Confirmation Email");
+                    throw new InvalidOperationException($"{user.Email} Has Not Been Confirmed. Please Retry Email Confirmation");
                 }
-                var jwt = jwtService.GenerateJWTToken(user);
+
+                if(model.RememberMe)
+                    jwt = await jwtService.GenerateJWtWithRefreshTokenAsync(user);
+                else
+                    jwt = jwtService.GenerateJwtToken(user);
                 return jwt;
             }
             catch(Exception ex)
@@ -63,6 +68,8 @@ namespace BoilerPlate.Security
 
         public async Task<Jwt> LoginWithoutEmailConfirmation(LoginModel model)
         {
+            Jwt jwt = null;
+
             IJWTService jwtService = SecurityServiceFactory.GetService(typeof(IJWTService)) as IJWTService;
             ApplicationUser user = await UserManager.FindByEmailAsync(model.Email);
 
@@ -76,8 +83,11 @@ namespace BoilerPlate.Security
             {
                 throw new InvalidOperationException("Incorrect email or password");
             }
-                   
-            var jwt = jwtService.GenerateJWTToken(user);
+
+            if (model.RememberMe)
+                jwt = await jwtService.GenerateJWtWithRefreshTokenAsync(user);
+            else
+                jwt = jwtService.GenerateJwtToken(user);
             return jwt;
         }
 

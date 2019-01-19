@@ -24,6 +24,14 @@ using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Couchbase.Extensions.DependencyInjection;
 using Couchbase.Extensions.Caching;
+using BoilerPlate.Security.Interface;
+using BoilerPlate.Security;
+using BoilerPlate.ServiceLayer.EntityServices.Interfaces;
+using BoilerPlate.ServiceLayer.EntityServices;
+using BoilerPlate.DataLayer.Interface;
+using BoilerPlate.DataLayer;
+using BoilerPlate.ModelLayer;
+using BoilerPlate.Security.Models;
 
 namespace WebBackendBoilerPlate
 {
@@ -133,6 +141,16 @@ namespace WebBackendBoilerPlate
             });
 
             JwtConfiguration jwtConfig = new JwtConfiguration();
+
+            CouchyBaseConfig couchyBaseConfig = new CouchyBaseConfig();
+
+            AuthMessageSenderOptions authMessageSenderOptions = new AuthMessageSenderOptions();
+
+
+            Configuration.GetSection("SendGrid").Bind(authMessageSenderOptions);
+
+            Configuration.GetSection("CouchyBaseCacheConfig").Bind(couchyBaseConfig);
+
             Configuration.GetSection("JWT").Bind(jwtConfig);
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -171,15 +189,13 @@ namespace WebBackendBoilerPlate
                 new Uri("http://127.0.0.1:8091")
             };
 
-                opt.Username = "{username}";
-                opt.Password = "{password}";
+                opt.Username = couchyBaseConfig.Username;
+                opt.Password = couchyBaseConfig.Password;
             });
 
-            services.AddDistributedCouchbaseCache("{BucketName}", opt => { });
+            services.AddDistributedCouchbaseCache(couchyBaseConfig.BucketName, opt => { });
 
-            //D.I
-            services.AddTransient<JwtAuthenticator>();
-            services.AddSingleton(jwtConfig);
+            
 
 
             if (Env.IsDevelopment())
@@ -206,6 +222,29 @@ namespace WebBackendBoilerPlate
 
               }
               );
+
+
+            //D.I
+            services.AddTransient<JwtAuthenticator>();
+            services.AddSingleton(jwtConfig);
+            services.AddSingleton(authMessageSenderOptions);
+
+            services.AddTransient<ISecurityServiceFactory, SecurityServicefactory>();
+            services.AddTransient<IEmailConfirmationService, EmailConfirmationService>();
+
+            services.AddTransient<IRegistrationService, RegistrationService>();
+            services.AddTransient<ILoginService, LoginService>();
+            services.AddTransient<IPasswordService, PasswordService>();
+
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IIdentityUserService, IdentityUserService>();
+            services.AddTransient<IJWTService, JWTService>();
+            services.AddTransient<IRefreshTokenService, RefreshTokenService>();
+
+            services.AddTransient<IIdentityUserService, IdentityUserService>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork<BoilerPlateDbContext>>();
+            services.AddTransient<IEmailSender, EmailSender>();
 
 
         }

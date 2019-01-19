@@ -7,6 +7,6 @@ namespace BoilerPlate.Security.Interface
 {
     public interface  IEmailConfirmationService
     {
-        Task ConfirmEmail(string userid, string token);
+        Task<string> ConfirmEmail(string userid, string token);
     }
 }
