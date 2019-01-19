@@ -100,6 +100,11 @@ namespace WebBackendBoilerPlate.ApiControllers
             try
             {
 
+                if (!ModelState.IsValid)
+                {
+                    throw new InvalidOperationException("Input Parameters Not In Correct Format");
+                }
+
                 var email =  await EmailConfirmationService.ConfirmEmail(model.UserId, model.Token);
 
                 string redirectUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}/EmailConfirmationSuccessful";
@@ -147,6 +152,11 @@ namespace WebBackendBoilerPlate.ApiControllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    throw new InvalidOperationException("Input Parameters Not In Correct Format");
+                }
+
                 var pathToFile = HostingEnvironment.WebRootPath
                            + Path.DirectorySeparatorChar.ToString()
                            + "EmailTemplates"
@@ -182,7 +192,11 @@ namespace WebBackendBoilerPlate.ApiControllers
         {
             try
             {
-                
+
+                if (!ModelState.IsValid)
+                {
+                    throw new InvalidOperationException("Input Parameters Not In Correct Format");
+                }
 
                 await RegistrationService.RegisterWithoutEmailConfirmation(model);
                 return Ok(null, "User Registered Successfully", ResponseStatus.OK);
@@ -202,6 +216,11 @@ namespace WebBackendBoilerPlate.ApiControllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    throw new InvalidOperationException("Input Parameters Not In Correct Format");
+                }
+
                 var pathToFile = HostingEnvironment.WebRootPath
                            + Path.DirectorySeparatorChar.ToString()
                            + "EmailTemplates"
@@ -234,7 +253,10 @@ namespace WebBackendBoilerPlate.ApiControllers
         {
             try
             {
-               
+                if (!ModelState.IsValid)
+                {
+                    throw new InvalidOperationException("Input Parameters Not In Correct Format");
+                }
 
                 var jwtPayload = await LoginService.LoginWithoutEmailConfirmation(model);
                 return Ok(jwtPayload, "Jwt Payload For Successfull Login Attempt", ResponseStatus.OK);
@@ -255,7 +277,10 @@ namespace WebBackendBoilerPlate.ApiControllers
         {
             try
             {
-
+                if (!ModelState.IsValid)
+                {
+                    throw new InvalidOperationException("Input Parameters Not In Correct Format");
+                }
 
                 var payload =  await RefreshTokenService.Refresh(model.JWt, model.RefreshToken);
                 return Ok(payload, "JWt Payload Generated SUccessfully", ResponseStatus.OK);
