@@ -3,27 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBackendBoilerPlate", "WebBackendBoilerPlate\WebBackendBoilerPlate.csproj", "{2F3B6EE5-234F-4555-954C-3FEA3519C160}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.PresentationLayer", "Portfolio\Portfolio.PresentationLayer.csproj", "{2F3B6EE5-234F-4555-954C-3FEA3519C160}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModelLayer", "ModelLayer", "{C4EC5D8A-4450-46D3-B7EF-B2FA352B96EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoilerPlate.ModelLayer", "BoilerPlate.ModelLayer\BoilerPlate.ModelLayer.csproj", "{1A9B7C2C-AC48-4C2F-98FF-56FDA0BA8BBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.ModelLayer", "Portfolio.ModelLayer\Portfolio.ModelLayer.csproj", "{1A9B7C2C-AC48-4C2F-98FF-56FDA0BA8BBC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLayer", "DataLayer", "{E8DC42F8-4F01-4F29-AA5E-B380F989EC39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoilerPlate.DataLayer", "BoilerPlate.DataLayer\BoilerPlate.DataLayer.csproj", "{CBBA8C21-5022-4D8E-A615-FDD50F4346CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.DataLayer", "Portfolio.DataLayer\Portfolio.DataLayer.csproj", "{CBBA8C21-5022-4D8E-A615-FDD50F4346CB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceLayer", "ServiceLayer", "{C1122F1A-720F-4E9A-AEBB-A26C9D909D92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoilerPlate.ServiceLayer", "BoilerPlate.ServiceLayer\BoilerPlate.ServiceLayer.csproj", "{09EFDB0B-2754-41F1-8DDC-5BD5F4AFF48C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.ServiceLayer", "Portfolio.ServiceLayer\Portfolio.ServiceLayer.csproj", "{09EFDB0B-2754-41F1-8DDC-5BD5F4AFF48C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{99AEF96A-1DC4-479F-8887-BC644F6DE80F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoilerPlate.UnitTest", "BoilerPlate.UnitTest\BoilerPlate.UnitTest.csproj", "{FBDF0405-7A31-44E1-89D4-D1932C9E51D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.UnitTest", "Portfolio.UnitTest\Portfolio.UnitTest.csproj", "{FBDF0405-7A31-44E1-89D4-D1932C9E51D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security", "Security", "{BF035E83-5BA4-48B2-AB30-EC34FF905E00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoilerPlate.Security", "BoilerPlate.Security\BoilerPlate.Security.csproj", "{9D78350C-0D08-4942-9C52-D0FD3A3B4218}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.Security", "Portfolio.Security\Portfolio.Security.csproj", "{9D78350C-0D08-4942-9C52-D0FD3A3B4218}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
