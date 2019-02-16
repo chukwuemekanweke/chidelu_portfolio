@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.PresentationLayer", "Portfolio\Portfolio.PresentationLayer.csproj", "{2F3B6EE5-234F-4555-954C-3FEA3519C160}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.PresentationLayer", "Portfolio.PresentationLayer\Portfolio.PresentationLayer.csproj", "{2F3B6EE5-234F-4555-954C-3FEA3519C160}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModelLayer", "ModelLayer", "{C4EC5D8A-4450-46D3-B7EF-B2FA352B96EC}"
 EndProject
